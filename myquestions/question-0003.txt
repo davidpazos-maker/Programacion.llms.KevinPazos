@@ -1,0 +1,32 @@
+El Problema:
+Un laboratorio ambiental desea modelar la distribución de una medición continua, como la concentración de partículas en el aire, para identificar zonas de mayor densidad de observaciones. En lugar de usar un histograma, el equipo quiere construir una estimación suave de densidad basada en kernels.
+
+Tu Misión:
+Escribe una función llamada estimar_densidad_kde(df, value_col, bandwidth=0.5, num_points=100) que realice lo siguiente:
+1. Reciba un pd.DataFrame y el nombre de una columna numérica continua definida por value_col.
+2. Elimine los valores nulos de esa columna.
+3. Construya una malla de evaluación de num_points puntos equiespaciados entre el mínimo y el máximo de la columna limpia.
+4. Ajuste un modelo KernelDensity de sklearn.neighbors con:
+   - kernel='gaussian'
+   - bandwidth recibido como argumento
+5. Evalúe la log-densidad sobre la malla usando score_samples.
+6. Transforme la log-densidad a densidad real usando np.exp.
+7. Devuelva un pd.DataFrame con exactamente dos columnas:
+   - una columna con el mismo nombre value_col que contenga la malla evaluada
+   - una columna llamada density con la densidad estimada en cada punto
+8. El resultado debe quedar ordenado ascendentemente por la columna value_col y con índice reiniciado.
+
+Argumentos:
+- df (pd.DataFrame)
+- value_col (str)
+- bandwidth (float, por defecto 0.5)
+- num_points (int, por defecto 100)
+
+Retorno:
+- pd.DataFrame
+
+Restricciones:
+- Debes usar pandas, numpy y sklearn.
+- Debes usar KernelDensity y np.exp.
+- No uses bucles por filas.
+- Se asume que, después de eliminar nulos, queda al menos un valor válido.

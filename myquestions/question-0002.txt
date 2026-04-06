@@ -1,0 +1,37 @@
+El Problema:
+Un sistema de monitoreo industrial registra, para cada equipo, una secuencia temporal de alertas binarias. Cuando la alerta vale 1, significa que el equipo estuvo en estado crítico en ese instante. El área de mantenimiento necesita identificar cada episodio continuo de alerta para estimar ventanas de intervención.
+
+Tu Misión:
+Escribe una función llamada extraer_episodios_alerta(df, equipo_col, tiempo_col, alerta_col) que realice lo siguiente:
+1. Reciba un pd.DataFrame con:
+   - una columna de identificador de equipo definida por equipo_col
+   - una columna temporal definida por tiempo_col
+   - una columna binaria de alerta definida por alerta_col (valores 0 o 1)
+2. Convierta tiempo_col a datetime si es necesario.
+3. Ordene los datos por equipo y tiempo ascendente.
+4. Identifique los bloques consecutivos donde alerta_col sea 1 para cada equipo.
+   - Un nuevo episodio comienza cuando cambia el equipo o cuando el valor de alerta deja de ser consecutivo respecto al bloque anterior.
+5. Para cada episodio de alerta, calcule:
+   - inicio_alerta: primer timestamp del episodio
+   - fin_alerta: último timestamp del episodio
+   - num_muestras: número de filas del episodio
+6. Devuelva un DataFrame con una fila por episodio y las columnas:
+   - equipo_col
+   - inicio_alerta
+   - fin_alerta
+   - num_muestras
+7. El resultado debe quedar ordenado por equipo_col e inicio_alerta, con índice reiniciado.
+
+Argumentos:
+- df (pd.DataFrame)
+- equipo_col (str)
+- tiempo_col (str)
+- alerta_col (str)
+
+Retorno:
+- pd.DataFrame
+
+Restricciones:
+- Debes usar pandas y numpy.
+- No uses loops por filas.
+- Debes usar operaciones vectorizadas con shift, comparación de bloques, cumsum, groupby o equivalentes.

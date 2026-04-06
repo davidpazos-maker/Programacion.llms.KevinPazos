@@ -1,0 +1,28 @@
+El Problema:
+Un equipo de analítica biomédica trabaja con varias mediciones numéricas altamente correlacionadas y necesita estimar una matriz de covarianza estable. Para reducir la inestabilidad de la covarianza muestral clásica, quiere usar un estimador regularizado tipo shrinkage.
+
+Tu Misión:
+Escribe una función llamada estimar_covarianza_ledoitwolf(df, feature_cols) que realice lo siguiente:
+1. Reciba un pd.DataFrame df y una lista feature_cols con los nombres de las columnas numéricas a analizar.
+2. Seleccione únicamente las columnas indicadas en feature_cols, respetando ese orden.
+3. Elimine las filas que tengan al menos un valor nulo en cualquiera de las columnas seleccionadas.
+4. Convierta los datos limpios a una matriz numérica de numpy.
+5. Ajuste un modelo LedoitWolf de sklearn.covariance sobre esa matriz.
+6. Obtenga la matriz de covarianza regularizada mediante el atributo covariance_.
+7. Devuelva un pd.DataFrame cuadrado donde:
+   - las filas tengan como índice los nombres en feature_cols
+   - las columnas tengan exactamente los mismos nombres en el mismo orden
+   - los valores correspondan a la covarianza estimada por LedoitWolf
+
+Argumentos:
+- df (pd.DataFrame)
+- feature_cols (list)
+
+Retorno:
+- pd.DataFrame
+
+Restricciones:
+- Debes usar pandas, numpy y sklearn.
+- Debes usar LedoitWolf.
+- No uses bucles por filas.
+- Se asume que, después de eliminar nulos, quedan suficientes filas para ajustar el estimador.

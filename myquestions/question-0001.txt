@@ -1,0 +1,34 @@
+El Problema:
+Una plataforma educativa quiere medir la retención de sus estudiantes por cohortes semanales. Para ello, dispone de un DataFrame con eventos de actividad, donde cada fila representa que un usuario estuvo activo en una fecha determinada. Un mismo usuario puede tener varias filas dentro de la misma semana.
+
+Tu Misión:
+Escribe una función llamada calcular_retencion_semanal(df, user_col, fecha_col) que realice lo siguiente:
+1. Reciba un pd.DataFrame con al menos:
+   - una columna de identificador de usuario definida por user_col
+   - una columna de fecha definida por fecha_col
+2. Convierta fecha_col a datetime si es necesario.
+3. Asigne cada fila a la semana calendario que inicia en lunes.
+4. Para cada usuario, determine su cohorte como la primera semana en la que aparece activo.
+5. Calcule la semana relativa de cada actividad respecto a la cohorte:
+   - 0 para la semana de cohorte
+   - 1 para la semana siguiente
+   - etc.
+6. Construya una matriz de retención donde:
+   - las filas sean las cohortes semanales
+   - las columnas sean las semanas relativas
+   - cada valor sea la proporción de usuarios de la cohorte que estuvieron activos en esa semana relativa
+7. Si un usuario tiene varias actividades en una misma semana relativa, debe contarse una sola vez.
+8. Devuelva el DataFrame resultante ordenado por cohorte ascendente y por semana relativa ascendente.
+
+Argumentos:
+- df (pd.DataFrame)
+- user_col (str)
+- fecha_col (str)
+
+Retorno:
+- pd.DataFrame
+
+Restricciones:
+- Debes usar pandas y numpy.
+- No uses loops por filas.
+- Debes usar operaciones vectorizadas, groupby, nunique y pivot_table (o una lógica equivalente).

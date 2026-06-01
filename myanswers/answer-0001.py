@@ -1,16 +1,15 @@
 import numpy as np
+import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import SpectralClustering
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.inspection import permutation_importance
 
 
 def agrupar_clientes_espectralmente(df, n_clusters):
-    # 1. Tomar solo las columnas numéricas del DataFrame
     X_num = df.select_dtypes(include=[np.number])
-
-    # 2. Escalar los datos
     X_scaled = StandardScaler().fit_transform(X_num)
 
-    # 3. Aplicar clustering espectral
     modelo = SpectralClustering(
         n_clusters=n_clusters,
         affinity="nearest_neighbors",
@@ -19,8 +18,20 @@ def agrupar_clientes_espectralmente(df, n_clusters):
         random_state=42
     )
 
-    # 4. Obtener las etiquetas de cada fila
     labels = modelo.fit_predict(X_scaled)
-
-    # 5. Retornar únicamente un arreglo numpy
     return np.array(labels)
+
+
+def permutation_importance_mean(X: pd.DataFrame, y: np.ndarray, n_repeats: int) -> np.ndarray:
+    model = RandomForestClassifier(random_state=42)
+    model.fit(X, y)
+
+    result = permutation_importance(
+        model,
+        X,
+        y,
+        n_repeats=n_repeats,
+        random_state=42
+    )
+
+    return result.importances_mean
